@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000/Sorteos/api/v1';
+const API_BASE_URL = 'http://34.51.20.186:8000/Sorteos/api/v1';
 
 export const getAllPersonas = async () => {
     const response = await fetch(`${API_BASE_URL}/personas/`);
