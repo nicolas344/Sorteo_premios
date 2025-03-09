@@ -1,0 +1,339 @@
+.sorteo-container {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #1a1a1a;
+}
+
+.sorteo-container h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 0.5rem;
+}
+
+.item-card {
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.item-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.item-card h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0.3rem 0;
+}
+
+.item-card p {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.sorteo-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 2rem;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    background: #2a2a2a;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    max-width: 900px;
+}
+
+.premio-seleccionado {
+    text-align: center;
+}
+
+.premio-seleccionado h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.item-card.large {
+    max-width: 300px;
+    margin: 0 auto;
+    cursor: default;
+    padding: 1rem;
+}
+
+.item-card.large img {
+    height: 200px;
+}
+
+.sorteo-nombres {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+.nombre-actual {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(145deg, #333, #2a2a2a);
+    border-radius: 12px;
+    min-width: 300px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    animation: pulseText 1s infinite;
+}
+
+.spin-button {
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.spin-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.spin-button:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.winner-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    text-align: center;
+    z-index: 1000;
+    animation: modalAppear 0.5s ease-out;
+    max-width: 400px;
+    width: 90%;
+}
+
+.winner-modal h2 {
+    color: #4CAF50;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    animation: winnerTitle 1s infinite;
+}
+
+.winner-modal h3 {
+    color: #fff;
+    font-size: 2.2rem;
+    margin: 1.5rem 0;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.continue-button {
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.continue-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.winner-modal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: -1;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Animaciones */
+@keyframes pulseText {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes winnerTitle {
+    0% { color: #4CAF50; }
+    50% { color: #45a049; }
+    100% { color: #4CAF50; }
+}
+
+@keyframes modalAppear {
+    0% { 
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    100% { 
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Confeti animation */
+.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 30px;
+    background: #ffd700;
+    top: 0;
+    opacity: 0;
+}
+
+@keyframes confettiRain {
+    0% { 
+        transform: translateY(0) rotateX(0) rotateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotateX(360deg) rotateY(360deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sorteo-section {
+        grid-template-columns: 1fr;
+    }
+
+    .nombre-actual {
+        min-width: 300px;
+        font-size: 2rem;
+    }
+
+    .winner-modal {
+        width: 90%;
+        padding: 2rem;
+    }
+
+    .winner-modal h2 {
+        font-size: 2rem;
+    }
+
+    .winner-modal h3 {
+        font-size: 2.5rem;
+    }
+} 
+
+.back-button {
+    background: transparent;
+    color: white;
+    border: 2px solid #666;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    left: 0;
+}
+
+.back-button:hover {
+    background: #333;
+    border-color: #888;
+    transform: translateX(-5px);
+}
+
+/* Ajustamos el margen del sorteo-section cuando hay botón de volver */
+.back-button + .sorteo-section {
+    margin-top: 0.5rem;
+}
+
+/* Aseguramos que el botón sea visible en móviles */
+@media (max-width: 768px) {
+    .back-button {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+} 
+
+/* Añadir estos estilos para centrar el botón de sorteo */
+.sorteo-central {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+} 
