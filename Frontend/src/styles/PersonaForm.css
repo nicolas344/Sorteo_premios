@@ -101,8 +101,13 @@
     transition: all 0.3s ease;
 }
 
+.ganador-btn:hover {
+    background: linear-gradient(145deg, #45a049, #3d8b3d);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
 .no-ganador-btn {
-    background: linear-gradient(145deg, #2196F3, #1976D2);
+    background: linear-gradient(145deg, #607d8b, #546e7a);
     color: white;
     padding: 0.5rem 1rem;
     border: none;
@@ -111,9 +116,9 @@
     transition: all 0.3s ease;
 }
 
-.ganador-btn:hover, .no-ganador-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+.no-ganador-btn:hover {
+    background: linear-gradient(145deg, #546e7a, #455a64);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* Añadir estos estilos para los botones de edición */

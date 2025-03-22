@@ -12,15 +12,12 @@ class PersonaView(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def toggle_ganador(self, request, pk=None):
         persona = self.get_object()
-        
-        # Si ya ha ganado, simplemente informamos que todo está bien
-        if persona.ha_ganado:
-            return Response({'status': 'La persona ya estaba marcada como ganadora'})
-        
-        # Si no ha ganado, la marcamos como ganadora
-        persona.ha_ganado = True
+        # Invertir el estado actual (si era ganador, ya no lo será y viceversa)
+        persona.ha_ganado = not persona.ha_ganado
         persona.save()
-        return Response({'status': 'Ganador registrado'})
+        
+        estado = "removido de ganadores" if not persona.ha_ganado else "marcado como ganador"
+        return Response({'status': f'Participante {estado}'})
 
     @action(detail=False, methods=['post'])
     def bulk_create(self, request):

@@ -45,8 +45,13 @@ export function PersonaForm() {
     };
 
     const handleToggleGanador = async (id) => {
-        await toggleGanador(id);
-        loadPersonas();
+        try {
+            await toggleGanador(id);
+            await loadPersonas();
+        } catch (error) {
+            console.error("Error al cambiar estado de ganador:", error);
+            alert("Hubo un error al actualizar el estado del participante");
+        }
     };
 
     const handleCancelEdit = () => {
@@ -97,7 +102,7 @@ export function PersonaForm() {
                                         onClick={() => handleToggleGanador(persona.id)}
                                         className={persona.ha_ganado ? 'ganador-btn' : 'no-ganador-btn'}
                                     >
-                                        {persona.ha_ganado ? 'Ganador' : 'Pendiente'}
+                                        {persona.ha_ganado ? 'Quitar Ganador' : 'Pendiente'}
                                     </button>
                                 </td>
                                 <td>
