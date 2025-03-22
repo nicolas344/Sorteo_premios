@@ -34,8 +34,28 @@ export const deletePersona = async (id) => {
 };
 
 export const toggleGanador = async (id) => {
-    const response = await fetch(`${API_BASE_URL}/personas/${id}/toggle_ganador/`, {
-        method: 'POST'
-    });
-    return await response.json();
+    try {
+        const response = await fetch(`${API_BASE_URL}/personas/${id}/toggle_ganador/`, {
+            method: 'POST'
+        });
+        
+        if (!response.ok) {
+            // Si el servidor responde con un error, leer el mensaje
+            const errorData = await response.json();
+            console.log("Error en toggleGanador:", errorData);
+            
+            // Si la persona ya ganó, no es un error crítico
+            if (response.status === 400 && errorData.status === 'Esta persona ya ha ganado') {
+                console.log("Ignorando error, la persona ya estaba marcada como ganadora");
+                return { status: 'ok', alreadyWinner: true };
+            }
+            
+            throw new Error(`Error al marcar ganador: ${errorData.status || response.statusText}`);
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error("Error en toggleGanador:", error);
+        throw error;
+    }
 };

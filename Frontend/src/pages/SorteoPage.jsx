@@ -57,7 +57,7 @@ export function SorteoPage() {
     const handleConfirmar = async () => {
         if (selectedPersona) {
             try {
-                await toggleGanador(selectedPersona.id);
+                const result = await toggleGanador(selectedPersona.id);
                 
                 setPersonas(prevPersonas => 
                     prevPersonas.filter(p => p.id !== selectedPersona.id)
@@ -66,8 +66,10 @@ export function SorteoPage() {
                 setSelectedPersona(null);
                 setShowWinnerModal(false);
                 setShowConfetti(false);
+                
             } catch (error) {
-                alert('Error al confirmar el ganador.');
+                console.error("Error al confirmar ganador:", error);
+                alert('Error al confirmar el ganador. Por favor, intenta de nuevo.');
                 setShowWinnerModal(false);
                 setSelectedPersona(null);
             }
