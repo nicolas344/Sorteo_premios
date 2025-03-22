@@ -12,9 +12,12 @@ class PersonaView(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def toggle_ganador(self, request, pk=None):
         persona = self.get_object()
-        persona.ha_ganado = not persona.ha_ganado
-        persona.save()
-        return Response({'status': 'estado actualizado'})
+        if not persona.ha_ganado:
+            persona.ha_ganado = True
+            persona.save()
+            return Response({'status': 'Ganador registrado'})
+        return Response({'status': 'Esta persona ya ha ganado'}, 
+                       status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['post'])
     def bulk_create(self, request):

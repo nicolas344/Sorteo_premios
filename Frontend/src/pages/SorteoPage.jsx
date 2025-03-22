@@ -15,53 +15,59 @@ export function SorteoPage() {
     }, []);
 
     const loadPersonas = async () => {
-        const data = await getAllPersonas();
-        const personasDisponibles = data.filter(persona => !persona.ha_ganado);
-        setPersonas(personasDisponibles);
+        try {
+            const data = await getAllPersonas();
+            const personasDisponibles = data.filter(persona => !persona.ha_ganado);
+            setPersonas(personasDisponibles);
+        } catch (error) {
+            console.error("Error al cargar personas:", error);
+        }
     };
 
     const handleSortear = () => {
-        if (isSpinning) return;
-        
-        setIsSpinning(true);
-        const personasDisponibles = personas;
-        
-        if (personasDisponibles.length === 0) {
-            alert('¡No hay personas disponibles para sortear!');
-            setIsSpinning(false);
+        if (isSpinning || personas.length === 0) {
+            if (personas.length === 0) {
+                alert('¡No hay personas disponibles para sortear!');
+            }
             return;
         }
-
-        // Animación de nombres
+        
+        setIsSpinning(true);
+        
         let counter = 0;
-        const maxIterations = 30;
+        const maxIterations = 15;
         
         const interval = setInterval(() => {
-            const randomPersona = personasDisponibles[Math.floor(Math.random() * personasDisponibles.length)];
-            setSelectedPersona(randomPersona);
+            const randomIndex = Math.floor(Math.random() * personas.length);
+            setSelectedPersona(personas[randomIndex]);
             counter++;
             
             if (counter === maxIterations) {
                 clearInterval(interval);
-                const ganador = personasDisponibles[Math.floor(Math.random() * personasDisponibles.length)];
+                const ganadorIndex = Math.floor(Math.random() * personas.length);
+                const ganador = personas[ganadorIndex];
                 setSelectedPersona(ganador);
                 setShowWinnerModal(true);
                 setShowConfetti(true);
                 setIsSpinning(false);
             }
-        }, 100 + (counter * 10));
+        }, 80 + (counter * 5));
     };
 
     const handleConfirmar = async () => {
         if (selectedPersona) {
             try {
                 await toggleGanador(selectedPersona.id);
-                await loadPersonas();
+                
+                setPersonas(prevPersonas => 
+                    prevPersonas.filter(p => p.id !== selectedPersona.id)
+                );
+                
                 setSelectedPersona(null);
                 setShowWinnerModal(false);
                 setShowConfetti(false);
             } catch (error) {
-                alert('Error al confirmar el ganador. Por favor, intenta de nuevo.');
+                alert('Error al confirmar el ganador.');
                 setShowWinnerModal(false);
                 setSelectedPersona(null);
             }
@@ -71,6 +77,7 @@ export function SorteoPage() {
     return (
         <div className="sorteo-container">
             <h1>Sorteo</h1>
+            <p className="participantes-contador">Participantes restantes: {personas.length}</p>
             
             <div className="sorteo-central">
                 <div className="sorteo-nombres">
@@ -97,10 +104,7 @@ export function SorteoPage() {
                         <h3>{selectedPersona.nombre}</h3>
                         <button 
                             className="continue-button"
-                            onClick={() => {
-                                handleConfirmar();
-                                setShowConfetti(false);
-                            }}
+                            onClick={handleConfirmar}
                         >
                             Confirmar Ganador
                         </button>
