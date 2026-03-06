@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import '../styles/SorteoPage.css';
 
 export function Confetti() {
     useEffect(() => {
